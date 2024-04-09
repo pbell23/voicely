@@ -15,7 +15,7 @@ const program = new Command();
 program
     .name("voicely")
     .description("CLI tool to transcribe audio files and summarize the transcriptions.")
-    .version("1.1.2")
+    .version("1.1.3")
     .usage("[options] -f <audio file>")
     .option('-f, --file <path>', 'Path to the audio file to transcribe.')
     .option('-o, --output <path>', 'Output directory for the transcript and summary files, defaults to the current directory.', process.cwd())
