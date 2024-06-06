@@ -4,7 +4,7 @@ import path from "path";
 
 const transcriptionApiEndpoint = 'https://api.openai.com/v1/audio/transcriptions';
 
-export async function transcribeAudio(filePath: string): Promise<string> {
+export async function transcribeAudio(filePath: string, apiKey: string): Promise<string> {
     const formData = new FormData();
     const audioFile = await fs.openAsBlob(filePath);
     const fileName = path.basename(filePath);
@@ -15,7 +15,7 @@ export async function transcribeAudio(filePath: string): Promise<string> {
         const response = await fetch(transcriptionApiEndpoint, {
             method: 'POST',
             headers: {
-                'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`
+                'Authorization': `Bearer ${apiKey}`
             },
             body: formData,
         });

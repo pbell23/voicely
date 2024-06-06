@@ -2,13 +2,20 @@ import { SummarizationError } from "./errors.js";
 
 const completionsApiEndpoint = 'https://api.openai.com/v1/chat/completions';
 
-export async function summarizeText(text: string): Promise<string> {
+export async function summarizeText(text: string, context: string = ''): Promise<string> {
+    const messages = [
+        { role: 'system', content: 'You are a helpful assistant tasked with providing a detailed summary with key points, formatted in markdown and in the same language as the original text.' },
+    ];
+
+    if (context) {
+        messages.push({ role: 'system', content: `Context: ${context}` });
+    }
+
+    messages.push({ role: 'user', content: text });
+
     const payload = {
-        model: 'gpt-3.5-turbo',
-        messages: [
-            { role: 'system', content: 'You are a helpful assistant tasked with providing a detailed summary with key points, formatted in markdown.' },
-            { role: 'user', content: text },
-        ],
+        model: 'gpt-4-turbo',
+        messages,
     };
 
     try {
